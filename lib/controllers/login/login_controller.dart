@@ -23,7 +23,6 @@ class LoginController extends GetxController {
     // Initialize phoneController with the default country code
     phoneController.text = countryCode.value;
     phoneController.addListener(() {
-      print(phoneController);
       // // Remove the old country code if it exists
       // final text = phoneController.text;
       // if (!text.startsWith(countryCode.value)) {

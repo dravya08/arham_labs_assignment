@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/dio_client.dart';
 import 'app_prefs.dart';
 
 final instance = GetIt.instance;
@@ -14,4 +15,6 @@ Future<void> initAppModule() async {
   // app prefs instance
   instance
       .registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
+
+  instance.registerLazySingleton<DioClient>(() => DioClient());
 }

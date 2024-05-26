@@ -33,4 +33,9 @@ class AppStrings {
   static const nowLetsSetUpYourProfile = "Now let’s set up\nyour profile.";
   static const disclaimer =
       "This information helps us find and provides a personalized experience. ";
+
+  static const whatAreYourConditions = "What are your conditions?";
+  static const searchHealthConditions = "Search Health Conditions";
+
+  static const next = "Next";
 }

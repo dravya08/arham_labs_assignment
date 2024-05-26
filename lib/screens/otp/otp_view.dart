@@ -50,7 +50,9 @@ class OtpView extends StatelessWidget {
                 length: 4,
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                onCompleted: (text) => print(text),
+                onCompleted: (text) {
+                  otpController.otp.value = text;
+                },
                 pinTheme: PinTheme(
                     inactiveColor: ColorManager.borderColor1,
                     shape: PinCodeFieldShape.box,
@@ -70,7 +72,6 @@ class OtpView extends StatelessWidget {
                       ? () {
                           otpController.startTimer();
                           // Handle your resend functionality here
-                          print('Resend OTP');
                         }
                       : null,
                   child: otpController.isResendEnabled
