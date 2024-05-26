@@ -78,17 +78,24 @@ class LoginView extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                height: AppSize.s48,
-                child: ElevatedButton(
-                  onPressed: () => controller.requestOTP(),
-                  child: Text(
-                    AppStrings.getStartedTitle1,
-                    style: getRegularStyle(
-                        color: ColorManager.white, fontSize: AppSize.s16),
-                  ),
-                ),
+              Obx(
+                () => controller.phoneNumber.value.length -
+                            controller.countryCode.value.length ==
+                        10
+                    ? SizedBox(
+                        width: double.infinity,
+                        height: AppSize.s48,
+                        child: ElevatedButton(
+                          onPressed: () => controller.requestOTP(),
+                          child: Text(
+                            AppStrings.getStartedTitle1,
+                            style: getRegularStyle(
+                                color: ColorManager.white,
+                                fontSize: AppSize.s16),
+                          ),
+                        ),
+                      )
+                    : SizedBox.shrink(),
               ),
               const SizedBox(height: AppSize.s20),
             ],

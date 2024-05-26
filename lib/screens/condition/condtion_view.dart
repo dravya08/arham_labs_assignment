@@ -20,88 +20,92 @@ class ConditionView extends StatelessWidget {
         Get.put(ConditionController());
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorManager.cardColor1,
-      ),
-      backgroundColor: ColorManager.white,
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: AppSize.s20),
-          child: Column(
-            children: [
-              Text(
-                AppStrings.whatAreYourConditions,
-                style: getMediumStyle(
-                    color: ColorManager.black, fontSize: FontSize.s24),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(AppPadding.p16),
-                    child: SvgPicture.asset(
-                      ImageAssets.searchIcon,
+        appBar: AppBar(
+          backgroundColor: ColorManager.cardColor1,
+        ),
+        backgroundColor: ColorManager.white,
+        body: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: AppSize.s20),
+            child: Column(
+              children: [
+                Text(
+                  AppStrings.whatAreYourConditions,
+                  style: getMediumStyle(
+                      color: ColorManager.black, fontSize: FontSize.s24),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(AppPadding.p16),
+                      child: SvgPicture.asset(
+                        ImageAssets.searchIcon,
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: ColorManager.cardColor1,
+                    hintText: AppStrings.searchHealthConditions,
+                    hintStyle: getRegularStyle(
+                        color: ColorManager.textColor1, fontSize: FontSize.s16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSize.s10),
                     ),
                   ),
-                  filled: true,
-                  fillColor: ColorManager.cardColor1,
-                  hintText: AppStrings.searchHealthConditions,
-                  hintStyle: getRegularStyle(
-                      color: ColorManager.textColor1, fontSize: FontSize.s16),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(AppSize.s10),
-                  ),
+                  onChanged: conditionController.searchItems,
                 ),
-                onChanged: conditionController.searchItems,
-              ),
-              GetBuilder(builder: (ConditionController conditionController) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    Datapoint datapoint =
-                        conditionController.filteredDataPoints.elementAt(index);
-                    final isSelected = conditionController.selectedDataPoints
-                        .contains(datapoint);
-                    return ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      onTap: () =>
-                          conditionController.toggleSelection(datapoint),
-                      selected: isSelected,
-                      trailing: isSelected
-                          ? SvgPicture.asset(ImageAssets.check)
-                          : null,
-                      title: Text(
-                        datapoint.name,
-                        style: isSelected
-                            ? getMediumStyle(
-                                color: ColorManager.secondary,
-                                fontSize: FontSize.s16)
-                            : getRegularStyle(
-                                color: ColorManager.textColor1,
-                                fontSize: FontSize.s16),
-                      ),
-                    );
-                  },
-                  itemCount: conditionController.filteredDataPoints.length,
-                );
-              }),
-            ],
+                GetBuilder(builder: (ConditionController conditionController) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      Datapoint datapoint = conditionController
+                          .filteredDataPoints
+                          .elementAt(index);
+                      final isSelected = conditionController.selectedDataPoints
+                          .contains(datapoint);
+                      return ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        onTap: () =>
+                            conditionController.toggleSelection(datapoint),
+                        selected: isSelected,
+                        trailing: isSelected
+                            ? SvgPicture.asset(ImageAssets.check)
+                            : null,
+                        title: Text(
+                          datapoint.name,
+                          style: isSelected
+                              ? getMediumStyle(
+                                  color: ColorManager.secondary,
+                                  fontSize: FontSize.s16)
+                              : getRegularStyle(
+                                  color: ColorManager.textColor1,
+                                  fontSize: FontSize.s16),
+                        ),
+                      );
+                    },
+                    itemCount: conditionController.filteredDataPoints.length,
+                  );
+                }),
+              ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
-        width: double.infinity,
-        height: AppSize.s48,
-        child: ElevatedButton(
-          onPressed: () => conditionController.goNext(),
-          child: Text(
-            AppStrings.next,
-            style: getRegularStyle(
-                color: ColorManager.white, fontSize: AppSize.s16),
-          ),
-        ),
-      ),
-    );
+        bottomNavigationBar: Obx(
+          () => conditionController.selectedDataPoints.isNotEmpty
+              ? Container(
+                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                  width: double.infinity,
+                  height: AppSize.s48,
+                  child: ElevatedButton(
+                    onPressed: () => conditionController.goNext(),
+                    child: Text(
+                      AppStrings.next,
+                      style: getRegularStyle(
+                          color: ColorManager.white, fontSize: AppSize.s16),
+                    ),
+                  ),
+                )
+              : SizedBox(),
+        ));
   }
 }
