@@ -4,6 +4,7 @@ class ColorManager {
   static Color primary = HexColor.fromHex("#FFFFFF");
   static Color secondary = HexColor.fromHex("#4166C6");
   static Color splashColor = HexColor.fromHex("#F0F4FF");
+  static Color blue = HexColor.fromHex("#142B66");
 
   static Color white = HexColor.fromHex("#FFFFFF");
   static Color error = HexColor.fromHex("#e61f34");

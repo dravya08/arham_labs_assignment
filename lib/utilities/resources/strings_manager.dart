@@ -29,4 +29,8 @@ class AppStrings {
       "Please enter your phone number";
   static const String phoneNumberMustBeAtLeast10Digits =
       "Phone number must be at\nleast 10 digits";
+
+  static const nowLetsSetUpYourProfile = "Now let’s set up\nyour profile.";
+  static const disclaimer =
+      "This information helps us find and provides a personalized experience. ";
 }

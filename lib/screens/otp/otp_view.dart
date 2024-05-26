@@ -101,7 +101,7 @@ class OtpView extends StatelessWidget {
                 width: double.infinity,
                 height: AppSize.s48,
                 child: ElevatedButton(
-                  onPressed: () => null,
+                  onPressed: () => otpController.submit(),
                   child: Text(
                     AppStrings.submitOtp,
                     style: getRegularStyle(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:arham_labs_assignment/utilities/resources/routes_manager.dart';
 import 'package:arham_labs_assignment/utilities/resources/strings_manager.dart';
 import 'package:get/get.dart';
 
@@ -48,6 +49,8 @@ class OtpController extends GetxController {
   }
 
   void submit() {
-    if (otp.isNotEmpty || otp.value.length <= 4) return;
+    if (otp.isEmpty || otp.value.length != 4) return;
+
+    Get.offNamed(Routes.setup);
   }
 }
