@@ -1,9 +1,11 @@
 import 'package:arham_labs_assignment/utilities/resources/font_manager.dart';
+import 'package:arham_labs_assignment/utilities/resources/routes_manager.dart';
 import 'package:arham_labs_assignment/utilities/resources/strings_manager.dart';
 import 'package:arham_labs_assignment/utilities/resources/styles_manager.dart';
 import 'package:arham_labs_assignment/utilities/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../../utilities/resources/assets_manager.dart';
 import '../../utilities/resources/color_manager.dart';
@@ -24,25 +26,27 @@ class GetStartedView extends StatelessWidget {
             // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: AppSize.s60),
+              const SizedBox(height: AppSize.s60),
               SvgPicture.asset(
                 ImageAssets.splashLogo,
                 width: AppSize.s46,
                 height: AppSize.s44,
               ),
-              Spacer(),
+              const Spacer(),
               Text(
                 AppStrings.getStartedTitle2,
                 textAlign: TextAlign.center,
                 style: getRegularStyle(
                     color: ColorManager.textColor1, fontSize: AppSize.s18),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 width: AppSize.s320,
                 height: AppSize.s48,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.login);
+                  },
                   child: Text(
                     AppStrings.getStartedTitle1,
                     style: getRegularStyle(
@@ -50,7 +54,7 @@ class GetStartedView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: AppSize.s32,
               ),
               RichText(
@@ -78,7 +82,7 @@ class GetStartedView extends StatelessWidget {
                       ),
                     ]),
               ),
-              SizedBox(
+              const SizedBox(
                 height: AppSize.s24,
               ),
             ],
