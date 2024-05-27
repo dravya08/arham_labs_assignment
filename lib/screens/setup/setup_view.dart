@@ -19,41 +19,49 @@ class SetupView extends StatelessWidget {
       body: SafeArea(
         child: Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: AppSize.s100),
-              SvgPicture.asset(ImageAssets.starWhite),
-              SizedBox(height: AppSize.s60),
+              const SizedBox(height: AppSize.s100), // Spacing
+              SvgPicture.asset(ImageAssets.starWhite), // Star SVG image
+              const SizedBox(height: AppSize.s60), // Spacing
               Text(
-                AppStrings.nowLetsSetUpYourProfile,
+                AppStrings
+                    .nowLetsSetUpYourProfile, // Title: "Now let's set up your profile"
                 style: getRegularStyle(
                     color: ColorManager.white, fontSize: FontSize.s32),
               ),
-              SizedBox(height: AppSize.s10),
+              const SizedBox(height: AppSize.s10), // Spacing
               Text(
+                AppStrings.disclaimer, // Disclaimer text
                 textAlign: TextAlign.center,
-                AppStrings.disclaimer,
                 style: getRegularStyle(
                     color: ColorManager.white, fontSize: FontSize.s18),
               ),
-              SizedBox(height: AppSize.s60),
-              IconButton(
-                  style: IconButton.styleFrom(
-                      backgroundColor: ColorManager.white,
-                      fixedSize: Size(AppSize.s80, AppSize.s80)),
-                  onPressed: () {
-                    Get.toNamed(Routes.condition);
-                  },
-                  icon: Icon(
-                    Icons.arrow_right_alt_rounded,
-                    color: ColorManager.blue,
-                    size: AppSize.s32,
-                  )),
+              const SizedBox(height: AppSize.s60), // Spacing
+              buildArrowButton(), // Arrow button to navigate to the next screen
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // Arrow button widget
+  IconButton buildArrowButton() {
+    return IconButton(
+      style: IconButton.styleFrom(
+        backgroundColor: ColorManager.white,
+        fixedSize: const Size(AppSize.s80, AppSize.s80), // Button size
+      ),
+      onPressed: () {
+        Get.toNamed(Routes.condition); // Navigate to the next screen
+      },
+      icon: Icon(
+        Icons.arrow_right_alt_rounded, // Arrow icon
+        color: ColorManager.blue,
+        size: AppSize.s32, // Icon size
       ),
     );
   }

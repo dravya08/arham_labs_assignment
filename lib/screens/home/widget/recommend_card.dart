@@ -13,7 +13,7 @@ class RecommendCard extends StatelessWidget {
     required this.title,
     required this.desc,
     required this.callback,
-  });
+  }); // Pass the key to the super constructor
 
   final String location;
   final String title;
@@ -23,54 +23,67 @@ class RecommendCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(
-        AppPadding.p12,
-      ),
+      padding:
+          const EdgeInsets.all(AppPadding.p12), // Padding for the container
       decoration: BoxDecoration(
-        color: ColorManager.cardColor1,
+        color: ColorManager.cardColor1, // Card background color
         borderRadius: const BorderRadius.all(
-          Radius.circular(AppSize.s16),
+          Radius.circular(AppSize.s16), // Border radius of the card
         ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment
+            .start, // Align items to the start of the cross axis
         children: [
+          // Location row
           Row(
             children: [
               Icon(
-                Icons.location_on,
-                color: ColorManager.textColor1,
+                Icons.location_on, // Location icon
+                color: ColorManager.textColor1, // Icon color
               ),
               Text(
-                location,
+                location, // Location text
                 style: getRegularStyle(
-                    color: ColorManager.textColor1, fontSize: FontSize.s14),
+                  color: ColorManager.textColor1,
+                  fontSize: FontSize.s14,
+                ), // Text style
               ),
             ],
           ),
-          const SizedBox(height: AppSize.s8),
+          const SizedBox(height: AppSize.s8), // Spacer
+          // Title text
           Text(
             title,
             style: getMediumStyle(
-                color: ColorManager.black, fontSize: FontSize.s16),
+              color: ColorManager.black,
+              fontSize: FontSize.s16,
+            ), // Title text style
           ),
+          // Description text
           Text(
             desc,
             style: getRegularStyle(
-                color: ColorManager.textColor1, fontSize: FontSize.s16),
+              color: ColorManager.textColor1,
+              fontSize: FontSize.s16,
+            ), // Description text style
           ),
-          const SizedBox(height: AppSize.s8),
+          const SizedBox(height: AppSize.s8), // Spacer
+          // Recommend button
           SizedBox(
             width: double.infinity,
-            height: AppSize.s44,
+            height: AppSize.s44, // Button height
             child: ElevatedButton(
-                onPressed: callback,
-                child: Text(
-                  AppStrings.recommend,
-                  style: getMediumStyle(
-                      color: ColorManager.white, fontSize: FontSize.s14),
-                )),
-          )
+              onPressed: callback, // Callback function
+              child: Text(
+                AppStrings.recommend, // Button text
+                style: getMediumStyle(
+                  color: ColorManager.white,
+                  fontSize: FontSize.s14,
+                ), // Button text style
+              ),
+            ),
+          ),
         ],
       ),
     );

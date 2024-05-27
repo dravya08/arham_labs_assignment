@@ -14,6 +14,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Initialize the LoginController using GetX
     final LoginController controller = Get.put(LoginController());
 
     return Scaffold(
@@ -25,83 +26,97 @@ class LoginView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Title:
               Text(
                 AppStrings.loginText1,
                 style: getMediumStyle(
                     color: ColorManager.black, fontSize: FontSize.s24),
               ),
+              // Subtitle:
               Text(
                 AppStrings.loginText2,
                 style: getRegularStyle(
                     color: ColorManager.textColor1, fontSize: FontSize.s14),
               ),
+              // Row for country code picker and phone number field
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: AppSize.s60,
-                    decoration: BoxDecoration(
-                        color: ColorManager.cardColor1,
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(AppSize.s10))),
-                    child: CountryCodePicker(
-                      padding: EdgeInsets.zero,
-                      showDropDownButton: true,
-                      showFlagMain: true,
-                      onChanged: (countryCode) {
-                        controller.countryCode.value = countryCode.dialCode!;
-                        controller.phoneController.text = countryCode.dialCode!;
-                      },
-                      initialSelection: 'IN',
-                      favorite: const ['+91', 'IN'],
-                      flagWidth: AppSize.s32,
-                      showOnlyCountryWhenClosed: false,
-                      hideMainText: true,
-                    ),
-                  ),
+                  buildCountryCode(controller), // Country code picker
                   const SizedBox(width: AppSize.s10),
-                  Expanded(
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: controller.phoneController,
-                      keyboardType: TextInputType.phone,
-                      decoration: const InputDecoration(
-                        hintText: AppStrings.enterPhoneNumber,
-                        // contentPadding: EdgeInsets.symmetric(
-                        //     vertical: AppPadding.p20,
-                        //     horizontal: AppPadding.p12),
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: controller.validatePhoneNumberLength,
-                    ),
-                  ),
+                  buildPhoneTextField(controller), // Phone number field
                 ],
               ),
               const Spacer(),
-              Obx(
-                () => controller.phoneNumber.value.length -
-                            controller.countryCode.value.length ==
-                        10
-                    ? SizedBox(
-                        width: double.infinity,
-                        height: AppSize.s48,
-                        child: ElevatedButton(
-                          onPressed: () => controller.requestOTP(),
-                          child: Text(
-                            AppStrings.getStartedTitle1,
-                            style: getRegularStyle(
-                                color: ColorManager.white,
-                                fontSize: AppSize.s16),
-                          ),
-                        ),
-                      )
-                    : SizedBox.shrink(),
-              ),
+              buildGetStartedButton(controller), // "Get Started" button
               const SizedBox(height: AppSize.s20),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // Country code picker widget
+  Container buildCountryCode(LoginController controller) {
+    return Container(
+      height: AppSize.s60,
+      decoration: BoxDecoration(
+          color: ColorManager.cardColor1,
+          borderRadius: const BorderRadius.all(Radius.circular(AppSize.s10))),
+      child: CountryCodePicker(
+        padding: EdgeInsets.zero,
+        showDropDownButton: true,
+        showFlagMain: true,
+        onChanged: (countryCode) {
+          // Update country code and phone number controller
+          controller.countryCode.value = countryCode.dialCode!;
+          controller.phoneController.text = countryCode.dialCode!;
+        },
+        initialSelection: 'IN',
+        favorite: const ['+91', 'IN'],
+        flagWidth: AppSize.s32,
+        showOnlyCountryWhenClosed: false,
+        hideMainText: true,
+      ),
+    );
+  }
+
+  // Phone number text field widget
+  Expanded buildPhoneTextField(LoginController controller) {
+    return Expanded(
+      child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        controller: controller.phoneController,
+        keyboardType: TextInputType.phone,
+        decoration: const InputDecoration(
+          hintText: AppStrings.enterPhoneNumber,
+          border: OutlineInputBorder(),
+        ),
+        validator: controller.validatePhoneNumberLength,
+      ),
+    );
+  }
+
+  // "Get Started" button widget
+  Obx buildGetStartedButton(LoginController controller) {
+    return Obx(
+      () => controller.phoneNumber.value.length -
+                  controller.countryCode.value.length ==
+              10
+          ? SizedBox(
+              width: double.infinity,
+              height: AppSize.s48,
+              child: ElevatedButton(
+                onPressed: () => controller.requestOTP(),
+                child: Text(
+                  AppStrings.getStartedTitle1,
+                  style: getRegularStyle(
+                      color: ColorManager.white, fontSize: AppSize.s16),
+                ),
+              ),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }

@@ -21,18 +21,18 @@ class GetStartedView extends StatelessWidget {
         child: SizedBox(
           width: double.infinity,
           height: double.infinity,
-          // height: MediaQuery.of(context).size.height,
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: AppSize.s60),
+              // Display the splash logo
               SvgPicture.asset(
                 ImageAssets.splashLogo,
                 width: AppSize.s46,
                 height: AppSize.s44,
               ),
               const Spacer(),
+              // Display the title text
               Text(
                 AppStrings.getStartedTitle2,
                 textAlign: TextAlign.center,
@@ -40,23 +40,12 @@ class GetStartedView extends StatelessWidget {
                     color: ColorManager.textColor1, fontSize: AppSize.s18),
               ),
               const Spacer(),
-              SizedBox(
-                width: AppSize.s320,
-                height: AppSize.s48,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.login);
-                  },
-                  child: Text(
-                    AppStrings.getStartedTitle1,
-                    style: getRegularStyle(
-                        color: ColorManager.white, fontSize: AppSize.s16),
-                  ),
-                ),
-              ),
+              // Display the login button
+              buildLoginButton(),
               const SizedBox(
                 height: AppSize.s32,
               ),
+              // Display the terms and conditions text
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -82,11 +71,28 @@ class GetStartedView extends StatelessWidget {
                       ),
                     ]),
               ),
-              const SizedBox(
-                height: AppSize.s24,
-              ),
+              const SizedBox(height: AppSize.s24),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  // Widget to build the login button
+  SizedBox buildLoginButton() {
+    return SizedBox(
+      width: AppSize.s320,
+      height: AppSize.s48,
+      child: ElevatedButton(
+        onPressed: () {
+          // Navigate to the login screen
+          Get.toNamed(Routes.login);
+        },
+        child: Text(
+          AppStrings.getStartedTitle1,
+          style:
+              getRegularStyle(color: ColorManager.white, fontSize: AppSize.s16),
         ),
       ),
     );

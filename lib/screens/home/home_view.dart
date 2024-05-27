@@ -25,24 +25,7 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: ColorManager.white,
-      appBar: AppBar(
-        backgroundColor: ColorManager.white,
-        title: Text(
-          AppStrings.starApp,
-          style: getMediumStyle(color: Colors.black, fontSize: FontSize.s24),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(ImageAssets.searchIcon),
-          ),
-          const SizedBox(width: AppSize.s10),
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(ImageAssets.notificationIcon),
-          ),
-        ],
-      ),
+      appBar: buildAppBar(),
       body: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(
@@ -58,21 +41,7 @@ class HomeView extends StatelessWidget {
                     color: ColorManager.textColor1, fontSize: AppSize.s16),
               ),
               const SizedBox(height: AppSize.s20),
-              SizedBox(
-                width: double.infinity,
-                height: AppSize.s44,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorManager.splashColor,
-                  ),
-                  onPressed: () {},
-                  icon: SvgPicture.asset(ImageAssets.penIcon),
-                  label: Text(
-                    AppStrings.createPost,
-                    style: getMediumStyle(color: ColorManager.secondary),
-                  ),
-                ),
-              ),
+              buildCreatePostButton(),
               const SizedBox(height: AppSize.s20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,90 +63,14 @@ class HomeView extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: AppSize.s10),
-              SizedBox(
-                height: AppSize.s140,
-                child: ListView.separated(
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      height: AppSize.s140,
-                      width: AppSize.s140,
-                      decoration: BoxDecoration(
-                        color: ColorManager.cardColor1,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(AppSize.s16),
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ClipOval(
-                            child: SizedBox.fromSize(
-                              size: const Size.fromRadius(
-                                  AppSize.s32), // Image radius
-                              child: Image.asset(ImageAssets.profile,
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                          Text(
-                            "Dravya Gohil",
-                            style: getMediumStyle(
-                              color: Colors.black,
-                              fontSize: FontSize.s14,
-                            ),
-                          ),
-                          Text(
-                            "28 M",
-                            style: getRegularStyle(
-                                color: ColorManager.textColor1,
-                                fontSize: FontSize.s14),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(width: AppSize.s20);
-                  },
-                ),
-              ),
+              buildPeopleListView(),
               const SizedBox(height: AppSize.s20),
               Divider(
                 height: AppSize.s1,
                 color: ColorManager.borderColor1,
               ),
               const SizedBox(height: AppSize.s20),
-              Obx(
-                () => homeController.communityGroupList.isEmpty
-                    ? const SizedBox()
-                    : ChipsChoice.single(
-                        padding: EdgeInsets.zero,
-                        value: homeController.selectedCommunityIndex.value,
-                        onChanged: (val) =>
-                            homeController.selectedCommunityIndex.value = val,
-                        choiceItems: C2Choice.listFrom<int, CommunityGroup>(
-                          source: homeController.communityGroupList,
-                          value: (i, v) => i,
-                          label: (i, v) => v.name,
-                        ),
-                        choiceCheckmark: true,
-                        choiceStyle: C2ChipStyle.filled(
-                          color: ColorManager.cardColor1,
-                          disabledStyle: const C2ChipStyle(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(AppSize.s10),
-                            ),
-                          ),
-                          selectedStyle: const C2ChipStyle(
-                            backgroundColor: Colors.black,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(AppSize.s10),
-                            ),
-                          ),
-                        ),
-                      ),
-              ),
+              buildCommunityChoiceChip(homeController),
               const SizedBox(height: AppSize.s20),
               UserFeedCard(
                 profileImage: ImageAssets.profile2,
@@ -362,13 +255,137 @@ Let me know what you think about this. I’d suggest each of you to try this sim
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorManager.secondary,
-        onPressed: () {},
-        child: Icon(
-          Icons.add,
-          color: ColorManager.white,
+      floatingActionButton: buildFloatingActionButton(),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: ColorManager.white,
+      title: Text(
+        AppStrings.starApp,
+        style: getMediumStyle(color: Colors.black, fontSize: FontSize.s24),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: SvgPicture.asset(ImageAssets.searchIcon),
         ),
+        const SizedBox(width: AppSize.s10),
+        IconButton(
+          onPressed: () {},
+          icon: SvgPicture.asset(ImageAssets.notificationIcon),
+        ),
+      ],
+    );
+  }
+
+  SizedBox buildCreatePostButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: AppSize.s44,
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: ColorManager.splashColor,
+        ),
+        onPressed: () {},
+        icon: SvgPicture.asset(ImageAssets.penIcon),
+        label: Text(
+          AppStrings.createPost,
+          style: getMediumStyle(color: ColorManager.secondary),
+        ),
+      ),
+    );
+  }
+
+  SizedBox buildPeopleListView() {
+    return SizedBox(
+      height: AppSize.s140,
+      child: ListView.separated(
+        itemCount: 10,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Container(
+            height: AppSize.s140,
+            width: AppSize.s140,
+            decoration: BoxDecoration(
+              color: ColorManager.cardColor1,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(AppSize.s16),
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipOval(
+                  child: SizedBox.fromSize(
+                    size: const Size.fromRadius(AppSize.s32), // Image radius
+                    child: Image.asset(ImageAssets.profile, fit: BoxFit.cover),
+                  ),
+                ),
+                Text(
+                  "Dravya Gohil",
+                  style: getMediumStyle(
+                    color: Colors.black,
+                    fontSize: FontSize.s14,
+                  ),
+                ),
+                Text(
+                  "28 M",
+                  style: getRegularStyle(
+                      color: ColorManager.textColor1, fontSize: FontSize.s14),
+                )
+              ],
+            ),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(width: AppSize.s20);
+        },
+      ),
+    );
+  }
+
+  Obx buildCommunityChoiceChip(HomeController homeController) {
+    return Obx(
+      () => homeController.communityGroupList.isEmpty
+          ? const SizedBox()
+          : ChipsChoice.single(
+              padding: EdgeInsets.zero,
+              value: homeController.selectedCommunityIndex.value,
+              onChanged: (val) =>
+                  homeController.selectedCommunityIndex.value = val,
+              choiceItems: C2Choice.listFrom<int, CommunityGroup>(
+                source: homeController.communityGroupList,
+                value: (i, v) => i,
+                label: (i, v) => v.name,
+              ),
+              choiceCheckmark: true,
+              choiceStyle: C2ChipStyle.filled(
+                color: ColorManager.cardColor1,
+                disabledStyle: const C2ChipStyle(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(AppSize.s10),
+                  ),
+                ),
+                selectedStyle: const C2ChipStyle(
+                  backgroundColor: Colors.black,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(AppSize.s10),
+                  ),
+                ),
+              ),
+            ),
+    );
+  }
+
+  FloatingActionButton buildFloatingActionButton() {
+    return FloatingActionButton(
+      backgroundColor: ColorManager.secondary,
+      onPressed: () {},
+      child: Icon(
+        Icons.add,
+        color: ColorManager.white,
       ),
     );
   }

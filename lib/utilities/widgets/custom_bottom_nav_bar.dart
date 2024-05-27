@@ -11,16 +11,28 @@ import '../resources/values_manager.dart';
 class CustomBottomNavBar extends StatelessWidget {
   CustomBottomNavBar({super.key});
 
-  ///int
+  // Observable integer to track the selected index
   final RxInt selectedIndex = 0.obs;
 
-  //list of screens
+  // List of screens to navigate between in the home view
   final List<Widget> _screens = [
-    HomeView(),
-    HomeView(),
-    HomeView(),
-    HomeView(),
-    HomeView(),
+    const HomeView(),
+    Container(
+      alignment: Alignment.center,
+      child: const Text(AppStrings.services),
+    ),
+    Container(
+      alignment: Alignment.center,
+      child: const Text(AppStrings.chat),
+    ),
+    Container(
+      alignment: Alignment.center,
+      child: const Text(AppStrings.journal),
+    ),
+    Container(
+      alignment: Alignment.center,
+      child: const Text(AppStrings.profile),
+    ),
   ];
 
   @override
@@ -35,8 +47,8 @@ class CustomBottomNavBar extends StatelessWidget {
   Container buildBottomNavigationBar() {
     return Container(
         height: AppSize.s60,
-        decoration: BoxDecoration(
-          boxShadow: const [
+        decoration: const BoxDecoration(
+          boxShadow: [
             BoxShadow(
                 color: Colors.white70,
                 spreadRadius: -2,
