@@ -1,3 +1,4 @@
+import 'package:arham_labs_assignment/utilities/resources/routes_manager.dart';
 import 'package:get/get.dart';
 
 import '../../app/app_prefs.dart';
@@ -53,5 +54,7 @@ class ConditionController extends GetxController {
 
   Future<void> goNext() async {
     _appPreferences.setConditions(selectedDataPoints);
+
+    Get.offAllNamed(Routes.home);
   }
 }

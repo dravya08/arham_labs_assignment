@@ -1,6 +1,8 @@
 class AppStrings {
   static const String noRouteFound = "No Route Found";
 
+  static const String starApp = "Star App";
+
   static const String splashTitle1 = "Star App";
   static const String splashTitle2 = "Lets Jam Together";
 
@@ -38,4 +40,20 @@ class AppStrings {
   static const searchHealthConditions = "Search Health Conditions";
 
   static const next = "Next";
+  static const askForHelp = "Ask for help, post an update or share.";
+  static const createPost = "Create a post";
+  static const peopleLike = "People like you";
+  static const seeALl = "See all";
+
+  static const home = "Home";
+  static const services = "Services";
+  static const chat = "Chat";
+  static const journal = "Journal";
+  static const profile = "Profile";
+  static const like = "Like";
+  static const reply = "reply";
+  static const share = "Share";
+  static const recommend = "Recommend";
+  static const support = "Support";
+  static const helpful = "Helpful";
 }

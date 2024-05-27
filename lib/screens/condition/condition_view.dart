@@ -30,11 +30,13 @@ class ConditionView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: AppSize.s20),
             child: Column(
               children: [
+                SizedBox(height: AppSize.s20),
                 Text(
                   AppStrings.whatAreYourConditions,
                   style: getMediumStyle(
                       color: ColorManager.black, fontSize: FontSize.s24),
                 ),
+                SizedBox(height: AppSize.s40),
                 TextField(
                   decoration: InputDecoration(
                     prefixIcon: Padding(
@@ -54,6 +56,7 @@ class ConditionView extends StatelessWidget {
                   ),
                   onChanged: conditionController.searchItems,
                 ),
+                SizedBox(height: AppSize.s20),
                 GetBuilder(builder: (ConditionController conditionController) {
                   return ListView.builder(
                     shrinkWrap: true,
@@ -93,9 +96,10 @@ class ConditionView extends StatelessWidget {
         bottomNavigationBar: Obx(
           () => conditionController.selectedDataPoints.isNotEmpty
               ? Container(
-                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppPadding.p20, vertical: AppPadding.p8),
                   width: double.infinity,
-                  height: AppSize.s48,
+                  height: AppSize.s60,
                   child: ElevatedButton(
                     onPressed: () => conditionController.goNext(),
                     child: Text(

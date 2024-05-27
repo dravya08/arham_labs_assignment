@@ -13,6 +13,7 @@ class ColorManager {
   static Color textColor1 = HexColor.fromHex("#747997");
 
   static Color cardColor1 = HexColor.fromHex("#F1F2F5");
+  static Color cardColor2 = HexColor.fromHex("#C7C9D5");
 
   static Color borderColor1 = HexColor.fromHex("#F1F2F5");
 }
