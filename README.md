@@ -1,16 +1,10 @@
-# arham_labs_assignment
+arham_labs_assignment
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1.
+![Uploading Screenshot_20240527_155905.png…]()
+2.
+![Screenshot_20240527_155957](https://github.com/dravya08/arham_labs_assignment/assets/57190083/dcf6a5f1-9932-4833-9584-00a9db18ceb2)
+3.
+![Screenshot_20240527_160019](https://github.com/dravya08/arham_labs_assignment/assets/57190083/24cd7037-84b7-4370-96af-b40f8d6072fc)
