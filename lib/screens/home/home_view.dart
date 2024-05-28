@@ -1,6 +1,7 @@
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:arham_labs_assignment/controllers/home/home_controller.dart';
 import 'package:arham_labs_assignment/screens/home/widget/recommend_card.dart';
+import 'package:arham_labs_assignment/screens/home/widget/user_feed_card.dart';
 import 'package:arham_labs_assignment/utilities/resources/assets_manager.dart';
 import 'package:arham_labs_assignment/utilities/resources/color_manager.dart';
 import 'package:arham_labs_assignment/utilities/resources/font_manager.dart';
@@ -14,7 +15,6 @@ import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../model/home/get_chip_data_model.dart';
-import 'widget/user_feed_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -24,54 +24,100 @@ class HomeView extends StatelessWidget {
     final HomeController homeController = Get.put(HomeController());
 
     return Scaffold(
-      backgroundColor: ColorManager.white,
-      appBar: buildAppBar(),
-      body: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-            horizontal: AppPadding.p20, vertical: AppPadding.p8),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: AppSize.s10),
-              Text(
-                AppStrings.askForHelp,
-                style: getRegularStyle(
-                    color: ColorManager.textColor1, fontSize: AppSize.s16),
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverAppBar(
+            pinned: true,
+            forceElevated: innerBoxIsScrolled,
+            // expandedHeight: 500,
+            backgroundColor: ColorManager.white,
+            title: Text(
+              AppStrings.starApp,
+              style:
+                  getMediumStyle(color: Colors.black, fontSize: FontSize.s24),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset(ImageAssets.searchIcon),
               ),
-              const SizedBox(height: AppSize.s20),
-              buildCreatePostButton(),
-              const SizedBox(height: AppSize.s20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              const SizedBox(width: AppSize.s10),
+              IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset(ImageAssets.notificationIcon),
+              )
+            ],
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              color: ColorManager.white,
+              child: Column(
                 children: [
-                  Text(
-                    AppStrings.peopleLike,
-                    style: getMediumStyle(
-                        color: Colors.black, fontSize: AppSize.s16),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      AppStrings.seeALl,
-                      style: getMediumStyle(
-                          color: ColorManager.secondary, fontSize: AppSize.s14),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: AppSize.s10),
+                        Text(
+                          AppStrings.askForHelp,
+                          style: getRegularStyle(
+                              color: ColorManager.textColor1,
+                              fontSize: AppSize.s16),
+                        ),
+                        const SizedBox(height: AppSize.s20),
+                        buildCreatePostButton(),
+                        const SizedBox(height: AppSize.s20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              AppStrings.peopleLike,
+                              style: getMediumStyle(
+                                  color: Colors.black, fontSize: AppSize.s16),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                AppStrings.seeALl,
+                                style: getMediumStyle(
+                                    color: ColorManager.secondary,
+                                    fontSize: AppSize.s14),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSize.s10),
+                      ],
                     ),
+                  ),
+                  buildPeopleListView(),
+                  const SizedBox(height: AppSize.s20),
+                  Divider(
+                    height: AppSize.s1,
+                    color: ColorManager.borderColor1,
                   ),
                 ],
               ),
-              const SizedBox(height: AppSize.s10),
-              buildPeopleListView(),
-              const SizedBox(height: AppSize.s20),
-              Divider(
-                height: AppSize.s1,
-                color: ColorManager.borderColor1,
-              ),
-              const SizedBox(height: AppSize.s20),
-              buildCommunityChoiceChip(homeController),
-              const SizedBox(height: AppSize.s20),
+            ),
+          ),
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: StickyHeaderDelegate(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildCommunityChoiceChip(homeController),
+              ],
+            )),
+          ),
+        ],
+        body: Container(
+          color: ColorManager.white,
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+          child: ListView(
+            children: [
               UserFeedCard(
                 profileImage: ImageAssets.profile2,
                 userName: "Alex Keen",
@@ -125,10 +171,10 @@ class HomeView extends StatelessWidget {
                   children: [
                     ReadMoreText(
                       '''If you want to boost your health and wellbeing, there are plenty of natural and home remedies to choose from, ranging from avoiding charred meats and added sugars to practicing meditation.
-  
-  1.Limit sugary drinks
-  2.Eat nuts and seeds
-  3.Avoid ultra-processed foods''',
+            
+            1.Limit sugary drinks
+            2.Eat nuts and seeds
+            3.Avoid ultra-processed foods''',
                       trimMode: TrimMode.Length,
                       trimLength: 230,
                       preDataTextStyle:
@@ -210,7 +256,7 @@ class HomeView extends StatelessWidget {
                   children: [
                     ReadMoreText(
                       '''I did a 30 day challenge to improve my gut health. Here’s a video on what I learnt:  youtube.com/watch?v=E3QpXj_QOqQ&ab_cha...
-Let me know what you think about this. I’d suggest each of you to try this sime''',
+                      Let me know what you think about this. I’d suggest each of you to try this sime''',
                       trimMode: TrimMode.Length,
                       trimLength: 100,
                       preDataTextStyle:
@@ -303,6 +349,7 @@ Let me know what you think about this. I’d suggest each of you to try this sim
       height: AppSize.s140,
       child: ListView.separated(
         itemCount: 10,
+        padding: EdgeInsets.only(left: AppPadding.p20, right: AppPadding.p20),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return Container(
@@ -388,5 +435,31 @@ Let me know what you think about this. I’d suggest each of you to try this sim
         color: ColorManager.white,
       ),
     );
+  }
+}
+
+class StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Column child;
+
+  StickyHeaderDelegate({required this.child});
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
+        color: ColorManager.white,
+        child: child);
+  }
+
+  @override
+  double get maxExtent => 50.0;
+
+  @override
+  double get minExtent => 50.0;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }
